@@ -9,13 +9,20 @@ int inputPin1=2;
 int inputPin2=3;
 int motorSpeed=0;
 int enablePin=5;
+int forwardButtonPin=8;
+int stopButtonPin=7;
+int reverseButtonPin=6;
 
 void setup()
 {
+  Serial.begin(9600);
   carServo.attach(9);
   pinMode(inputPin1,OUTPUT);
   pinMode(inputPin2,OUTPUT);
   pinMode(enablePin,OUTPUT);
+  pinMode(forwardButtonPin, INPUT);
+  pinMode(stopButtonPin, INPUT);
+  pinMode(reverseButtonPin, INPUT);  
 }
 
 void loop()
@@ -44,4 +51,12 @@ void loop()
   digitalWrite(inputPin1,LOW);
   digitalWrite(inputPin2,LOW);
   delay(1000);
-}t
+  
+  if(digitalRead(forwardButtonPin)==HIGH)
+    Serial.println("Forward");
+  if(digitalRead(stopButtonPin)==HIGH)
+    Serial.println("Stop");
+  if(digitalRead(reverseButtonPin)==HIGH)
+    Serial.println("Reverse");
+  delay(10);
+}
