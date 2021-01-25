@@ -25,6 +25,21 @@ void setup()
   pinMode(reverseButtonPin, INPUT);  
 }
 
+void stop() {
+  digitalWrite(inputPin1,LOW);
+  digitalWrite(inputPin2,LOW);
+}
+
+void forward() {
+  digitalWrite(inputPin1,HIGH);
+  digitalWrite(inputPin2,LOW);
+}
+
+void reverse() {
+  digitalWrite(inputPin1,LOW);
+  digitalWrite(inputPin2,HIGH);
+}
+
 void loop()
 {
   servoPotValue=analogRead(servoPotPin);
@@ -35,28 +50,13 @@ void loop()
   motorSpeed=analogRead(speedPotPin);
   motorSpeed=map(motorSpeed, 0, 1023, 0, 255);
   analogWrite(enablePin,motorSpeed);
-  
-  digitalWrite(inputPin1,HIGH);
-  digitalWrite(inputPin2,LOW);
-  delay(2000);
-  
-  digitalWrite(inputPin1,LOW);
-  digitalWrite(inputPin2,LOW);
-  delay(1000);
-  
-  digitalWrite(inputPin1,LOW);
-  digitalWrite(inputPin2,HIGH);
-  delay(2000);
-  
-  digitalWrite(inputPin1,LOW);
-  digitalWrite(inputPin2,LOW);
-  delay(1000);
+
   
   if(digitalRead(forwardButtonPin)==HIGH)
-    Serial.println("Forward");
+    forward();
   if(digitalRead(stopButtonPin)==HIGH)
-    Serial.println("Stop");
+    stop();
   if(digitalRead(reverseButtonPin)==HIGH)
-    Serial.println("Reverse");
+    reverse();
   delay(10);
 }
